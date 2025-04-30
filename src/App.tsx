@@ -38,6 +38,8 @@ function App() {
     };
   }, []);
 
+  console.log(1010);
+
   return (
     <div className="font-sans antialiased text-gray-900 bg-white">
       <Navbar />

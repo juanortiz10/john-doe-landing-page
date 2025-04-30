@@ -1,0 +1,35 @@
+name: Deploy to Github Pages
+
+on:
+    push:
+        branches: 
+            - develop
+
+permissions:
+    contents: write
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+    
+        steps: 
+          - name: Checkout
+            uses: actions/checkout@v4
+        
+          - name: Setup Node Js
+            uses: actions/setup-node@v4
+            with:
+                node-version: 20
+                cache: 'npm'
+          
+          - name: Install Dependencies
+            run: npm run ci 
+
+          - name: Build
+            run: npm run build
+        
+          - name: Deploy to Pages
+            uses: peaceiris/actions-gh-pages@v4
+            with: 
+                github_token: ${{ secrets.GITHUB_TOKEN }} # Token de acceso a GitHub
+                publish_dir: ./dist # Directorio a publicar 
